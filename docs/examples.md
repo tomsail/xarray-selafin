@@ -49,7 +49,7 @@ ds = xr.open_dataset("tests/data/r2d_tidal_flats.slf", engine="selafin")
 plot_selafin(ds.isel(time=-1), "S", cmap="coolwarm", width=1000, height=200)
 ```
 
-<iframe src="../2d_free_surface.html" width="100%" height="200" style="border:none;"></iframe>
+<iframe src="./2d_free_surface.html" width="100%" height="200" style="border:none;"></iframe>
 
 ### Bathymetry
 
@@ -57,7 +57,7 @@ plot_selafin(ds.isel(time=-1), "S", cmap="coolwarm", width=1000, height=200)
 plot_selafin(ds.isel(time=-1), "B", cmap="viridis", width=1000, height=200)
 ```
 
-<iframe src="../2d_bathymetry.html" width="100%" height="200" style="border:none;"></iframe>
+<iframe src="./2d_bathymetry.html" width="100%" height="200" style="border:none;"></iframe>
 
 ### Time series at a node
 
@@ -65,7 +65,7 @@ plot_selafin(ds.isel(time=-1), "B", cmap="viridis", width=1000, height=200)
 ds.isel(node=0).hvplot(x="time", y="S")
 ```
 
-<iframe src="../2d_timeseries.html" width="100%" height="410" style="border:none;"></iframe>
+<iframe src="./2d_timeseries.html" width="100%" height="410" style="border:none;"></iframe>
 
 ---
 
@@ -78,7 +78,7 @@ ds = xr.open_dataset("tests/data/tom_manche.slf", engine="selafin", lang="fr")
 plot_selafin(ds.isel(time=-1), "HAUTEUR_HM0", geo=True, cmap="rainbow4", width=800, height=800)
 ```
 
-<iframe src="../tomawac_hm0.html" width="100%" height="710" style="border:none;"></iframe>
+<iframe src="./tomawac_hm0.html" width="100%" height="710" style="border:none;"></iframe>
 
 ---
 
@@ -91,7 +91,7 @@ ds = xr.open_dataset("tests/data/r3d_bump.slf", engine="selafin")
 plot_selafin(ds.isel(time=-1, plan=-1), "Z", cmap="coolwarm", width=1000, height=200)
 ```
 
-<iframe src="../3d_bump_z.html" width="100%" height="310" style="border:none;"></iframe>
+<iframe src="./3d_bump_z.html" width="100%" height="310" style="border:none;"></iframe>
 
 You can also use `hvplot.scatter` for **vertical cross-sections**:
 
@@ -99,7 +99,7 @@ You can also use `hvplot.scatter` for **vertical cross-sections**:
 ds.isel(time=-1).hvplot.scatter(x="x", y="Z", c="U", cmap="coolwarm")
 ```
 
-<iframe src="../3d_bump_scatter.html" width="100%" height="510" style="border:none;"></iframe>
+<iframe src="./3d_bump_scatter.html" width="100%" height="510" style="border:none;"></iframe>
 
 ---
 
@@ -187,4 +187,4 @@ hv.VectorField((x, y, angle, mag)).opts(
     )
 ```
 
-<iframe src="../scratch_wind.html" width="100%" height="610" style="border:none;"></iframe>
+<iframe src="./scratch_wind.html" width="100%" height="610" style="border:none;"></iframe>
