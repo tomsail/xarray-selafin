@@ -28,17 +28,17 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
-        python: ["3.10", "3.11", "3.12", "3.13"]
+        python: ["3.11", "3.12", "3.13"]
         include:
           - os: "macos-latest"
-            python: "3.10"
+            python: "3.11"
     defaults:
       run:
         shell: "bash -eo pipefail {0}"
 
     steps:
-      - uses: "actions/checkout@v2"
-      - uses: "actions/setup-python@v2"
+      - uses: "actions/checkout@v4"
+      - uses: "actions/setup-python@v5"
         with:
           python-version: "${{ matrix.python }}"
       - uses: "actions/cache@v3"
@@ -48,6 +48,7 @@ jobs:
           key: "test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements/*') }}"
       - run: "python --version"
       - run: "python -mpip install -U pip"
+      - run: "python -mpip install -U pip setuptools>=72 wheel"
       - run: "python -mpip --version"
       - run: "python -mpip install -r requirements/requirements-dev.txt"
       - run: "python -mpip install ./"

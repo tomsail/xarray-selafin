@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xarray-selafin"
-version = "0.2.0"
+version = "0.2.1"
 description = ""
 authors = ["tomsail <saillour.thomas@gmail.com>", "lucduron <l.duron@cnr.tm.fr>"]
 readme = "README.md"
@@ -11,7 +11,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = ">=3.11"
 numpy = "*"
 xarray = "*"
 
@@ -23,6 +23,10 @@ pytest = "*"
 scipy = "*"
 xarray = {version = "*",  extras = ["io"]}
 dask = "*"
+zensical = "*"
+hvplot = "*"
+jupyter-bokeh = "*"
+mkdocs-material = "*"
 
 [build-system]
 requires = ["poetry-core"]
