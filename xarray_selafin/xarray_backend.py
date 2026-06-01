@@ -12,10 +12,11 @@ from operator import attrgetter
 import numpy as np
 import xarray as xr
 from serafin import Read
-from serafin import Serafin
-from serafin import serafin
 from serafin import SerafinHeader
+from serafin import SerafinRequestError
 from serafin import Write
+from serafin.serafin import LANG
+from serafin.serafin import SLF_EIT
 from xarray.backends import BackendArray
 from xarray.backends import BackendEntrypoint
 from xarray.core import indexing
@@ -148,7 +149,7 @@ class SelafinBackendEntrypoint(BackendEntrypoint):
         # Below are custom arguments
         disable_lock=False,
         lazy_loading=True,
-        lang=serafin.LANG,
+        lang=LANG,
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ):
         # Initialize SELAFIN reader
@@ -222,7 +223,7 @@ class SelafinBackendEntrypoint(BackendEntrypoint):
 
         ds.set_close(close)
 
-        ds.attrs["title"] = slf.header.title.decode(serafin.SLF_EIT).strip()
+        ds.attrs["title"] = slf.header.title.decode(SLF_EIT).strip()
         ds.attrs["language"] = slf.header.language
         ds.attrs["float_size"] = slf.header.float_size
         ds.attrs["endian"] = slf.header.endian
@@ -232,7 +233,7 @@ class SelafinBackendEntrypoint(BackendEntrypoint):
         if not is_2d:
             ds.attrs["ikle3"] = np.reshape(slf.header.ikle, (slf.header.nb_elements, ndp3))
         ds.attrs["variables"] = {
-            var_ID: (name.decode(serafin.SLF_EIT).rstrip(), unit.decode(serafin.SLF_EIT).rstrip())
+            var_ID: (name.decode(SLF_EIT).rstrip(), unit.decode(SLF_EIT).rstrip())
             for var_ID, name, unit in slf.header.iter_on_all_variables()
         }
         ds.attrs["date_start"] = slf.header.date
@@ -314,7 +315,7 @@ class SelafinAccessor:
                 header.date = DEFAULT_DATE_START
 
         # Variables
-        header.language = ds.attrs.get("language", serafin.LANG)
+        header.language = ds.attrs.get("language", LANG)
         for var in ds.data_vars:
             try:
                 name, unit = ds.attrs["variables"][var]
@@ -322,7 +323,7 @@ class SelafinAccessor:
             except KeyError:
                 try:
                     header.add_variable_from_ID(var)
-                except Serafin.SerafinRequestError:
+                except SerafinRequestError:
                     header.add_variable_str(var, var, "?")
         header.nb_var = len(header.var_IDs)
 

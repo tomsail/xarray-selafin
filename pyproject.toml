@@ -14,7 +14,7 @@ include = [
 python = ">=3.11"
 numpy = "*"
 xarray = "*"
-python-serafin = "*"
+python-serafin = "0.1.0"
 
 [tool.poetry.plugins."xarray.backends"]
 selafin = "xarray_selafin.xarray_backend:SelafinBackendEntrypoint"
